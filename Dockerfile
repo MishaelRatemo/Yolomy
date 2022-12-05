@@ -1,5 +1,5 @@
 # base image
-FROM node:13.14.0-alpine
+FROM node:14.21.1-alpine
 LABEL version="1.0" \
  maintainer="Mishael Ratemo <ratemomishael@gmail.com>"
 

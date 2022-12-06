@@ -4,33 +4,45 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
-    image: mishaelr/yolomy
-    container_name: mongo-express-app
+      dockerfile: client/Dockerfile
+    image: mishaelr/yolomy:1.0
+    container_name: containerfront
     ports:
-      - '8000:8000'
+      - '3000:3000'
     env_file:
       - './.env'
     networks:
       - mongo_net
     depends_on:
-      - mongo
+      - backend
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: mishaelr/yolomy:1.0
+    container_name: mongo-express-app
+    ports:
+      - '5000:5000'
+    env_file:
+      - './.env'
+    networks:
+      - mongo_net
+    depends_on:
+      - mongo  
 
   mongo:
     image: mongo
     container_name: mongodb
     ports:
       - '27017:27017'
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: mish
-      MONGO_INITDB_ROOT_PASSWORD: Access
+    env_file:
+      - './.env'
     volumes:
       - database:/data/db
     networks:
       - mongo_net
 volumes:
-  database:
-
+    database:
 networks:
-  your_network:
+  mongo_net:
     driver: bridge

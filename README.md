@@ -1,4 +1,5 @@
 # Yolomy Application
+## Author   :: Mishael Ratemo
 ### Application Description
 This is an ecommerce web app for both male and female.
 ## Requirements

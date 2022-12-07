@@ -3,12 +3,13 @@ version: '3.8'
 services:
   app:
     build:
-      context: .
-      dockerfile: client/Dockerfile
-    image: mishaelr/yolomy:1.0
+      context: ./client
+      dockerfile: Dockerfile
+    image: mishaelr/yolomyfrontend:1.0
+    # command: tail -f /dev/null
     container_name: containerfront
     ports:
-      - '3000:3000'
+      - '3000:80'
     env_file:
       - './.env'
     networks:
@@ -17,9 +18,10 @@ services:
       - backend
   backend:
     build:
-      context: .
-      dockerfile: backend/Dockerfile
-    image: mishaelr/yolomy:1.0
+      context: ./backend
+      dockerfile: Dockerfile
+    image: mishaelr/yolomybacked:1.0
+    # command: tail -f /dev/null
     container_name: mongo-express-app
     ports:
       - '5000:5000'
@@ -32,6 +34,7 @@ services:
 
   mongo:
     image: mongo
+    # command: tail -f /dev/null
     container_name: mongodb
     ports:
       - '27017:27017'
